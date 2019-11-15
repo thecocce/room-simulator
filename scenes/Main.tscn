@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/Game_Manager.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/environment/Environment.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/player_demo/Player.tscn" type="PackedScene" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 300, 1, 300 )
+
+[node name="Game_Manager" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Environment" parent="." instance=ExtResource( 2 )]
+
+[node name="MeshInstance" parent="Environment/floor" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.885451, 0.116517, -1.3867 )
+
+[node name="obstacle" parent="Environment" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3509, 0.0521398, -0.181009 )
+
+[node name="MeshInstance" parent="Environment/obstacle" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.36851, 1.54356, -6.1985 )
+
+[node name="Dead_Zone" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Dead_Zone"]
+shape = SubResource( 1 )
+
+[node name="Spawn_Point" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 35, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+
+[node name="mesh" parent="Player" index="0"]
+visible = false
+
+[node name="MeshInstance" parent="Player/Arm" index="0"]
+visible = false
+
+[node name="pistol" parent="Player/Arm/hand" index="0"]
+editor/display_folded = true
+
+[node name="SpotLight" parent="Player/Arm/hand" index="1"]
+visible = false
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Player/Arm/hand" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18883, 3.62836, -0.524131 )
+[connection signal="body_entered" from="Dead_Zone" to="." method="_on_Dead_Zone_body_entered"]
+
+[editable path="Environment"]
+
+[editable path="Player"]
