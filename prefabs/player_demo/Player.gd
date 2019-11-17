@@ -15,7 +15,6 @@ export(float,0.1, 3.0, 0.1) var gravity_scl = 1.0
 
 #instances ref
 onready var player_cam = $Camera
-onready var player_hand = $Arm
 onready var ground_ray = $GroundRay
 
 #variables
@@ -33,7 +32,6 @@ func _physics_process(delta):
 	rotate_y(deg2rad(20)* - mouse_motion.x * sensitivity_x * delta)
 	player_cam.rotate_x(deg2rad(20) * - mouse_motion.y * sensitivity_y * delta)
 	player_cam.rotation.x = clamp(player_cam.rotation.x, deg2rad(-47), deg2rad(47))
-	player_hand.rotation.x = lerp(player_hand.rotation.x, player_cam.rotation.x, 0.2)
 	mouse_motion = Vector2()
 	
 	#gravity
@@ -59,7 +57,10 @@ func _input(event):
 
 func _axis():
 	var direction = Vector3()
-	
+		
+	if Input.is_key_pressed(KEY_Q):
+		get_tree().quit()
+
 	if Input.is_key_pressed(KEY_W):
 		direction -= get_global_transform().basis.z.normalized()
 		
