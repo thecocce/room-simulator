@@ -1,9 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://prefabs/player_demo/Player.gd" type="Script" id=1]
 [ext_resource path="res://prefabs/player_demo/pistol.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/player_demo/pistol_base_mat.tres" type="Material" id=3]
-[ext_resource path="res://prefabs/player_demo/pistol_aim.tres" type="Material" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1, 4, 1 )
@@ -21,57 +19,24 @@ height = 2.0
 [sub_resource type="CubeMesh" id=4]
 size = Vector3( 0.2, 0.25, 1.4 )
 
-[sub_resource type="CubeMesh" id=5]
-size = Vector3( 0.12, 0.12, 0.4 )
-
-[sub_resource type="CubeMesh" id=6]
-size = Vector3( 0.1, 0.3, 0.1 )
-
-[sub_resource type="CubeMesh" id=7]
-size = Vector3( 0.01, 0.02, 0.02 )
-
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=5]
 resource_name = "fire"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:translation")
+tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.02, 0.07, 0.12 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0.221826, -0.131237 ), Vector3( 0, 0.221826, -0.114325 ), Vector3( 0, 0.221826, -0.131237 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance3:translation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.02, 0.07, 0.12 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0.288564, -0.294251 ), Vector3( 0, 0.288564, -0.277339 ), Vector3( 0, 0.288564, -0.294251 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0.02, 0.06, 0.12 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 7.82924, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=6]
 resource_name = "idle"
 
 [node name="Player" type="KinematicBody"]
@@ -102,26 +67,9 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476211, 0, -1.2715 )
 
 [node name="pistol" type="Position3D" parent="Arm/hand"]
+editor/display_folded = true
 script = ExtResource( 2 )
 fire_rate = 0.18
-
-[node name="MeshInstance" type="MeshInstance" parent="Arm/hand/pistol"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.221826, -0.131237 )
-visible = false
-mesh = SubResource( 5 )
-material/0 = ExtResource( 3 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="Arm/hand/pistol"]
-transform = Transform( 1, 0, 0, 0, 0.94957, 0.313554, 0, -0.313554, 0.94957, 0, 0.0364962, 0.014612 )
-visible = false
-mesh = SubResource( 6 )
-material/0 = ExtResource( 3 )
-
-[node name="MeshInstance3" type="MeshInstance" parent="Arm/hand/pistol"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.288564, -0.294251 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 4 )
 
 [node name="AudioEffect" type="AudioStreamPlayer" parent="Arm/hand/pistol"]
 
@@ -131,8 +79,8 @@ material/0 = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.221385, -0.339388 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Arm/hand/pistol"]
-anims/fire = SubResource( 8 )
-anims/idle = SubResource( 9 )
+anims/fire = SubResource( 5 )
+anims/idle = SubResource( 6 )
 
 [node name="SpotLight" type="SpotLight" parent="Arm/hand"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.170621 )
